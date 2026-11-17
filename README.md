@@ -1,0 +1,7 @@
+# Forma workflow studio
+
+React + TypeScript visual workflow builder. Start with `npm install` and `npm run dev`, then open http://localhost:5173. `npm run build` creates the production bundle. Run browser checks with `npx playwright install chromium` and `npm test`.
+
+Workflows automatically persist in browser local storage. `src/apiService.ts` provides asynchronous list/get/create/update/delete operations, with nodes embedded in each workflow. No backend or account is needed. Browser storage is device-specific; clearing site data removes workflows.
+
+Click a node to edit its name, types, function, and validation input. Save tests the function against the supplied input. Use the plus on a node to connect its output to another node; matching types and acyclic connections are enforced. Transform nodes have one outgoing connection. If / else nodes have labeled True and False paths, and their scripts must return a boolean. Only the selected branch executes, receiving the boolean result. Existing stored nodes are treated as Transform nodes. Changing a node’s type resets its script and outgoing connections. Unconnected nodes are not executed. Strings are entered as plain text; other types use JSON. Functions can be async and must return their declared type. Each call runs in a dedicated worker with a two-second timeout. Workers protect editor responsiveness, but are not a security boundary for untrusted code: only execute scripts you trust.
